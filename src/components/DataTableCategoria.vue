@@ -115,7 +115,7 @@ export default {
         value: "nombre",
       },
       { text: "Descripcion", value: "descripcion" },
-      { text: "Eestado", value: "estado" },
+      { text: "Estado", value: "estado" },
       { text: "Editar", value: "actions", sortable: false },
     ],
     desserts: [],

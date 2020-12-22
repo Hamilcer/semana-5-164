@@ -125,7 +125,7 @@ export default {
         value: "nombre",
       },
       { text: "Correo", value: "email" },
-      { text: "Eestado", value: "estado" },
+      { text: "Estado", value: "estado" },
       { text: "Editar", value: "actions", sortable: false },
     ],
     usuarios: [],
