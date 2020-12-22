@@ -1,54 +1,69 @@
 <template>
-
-    <v-layout>
-        <v-row>
-            <v-card>
-            <v-card-title></v-card-title>
-            <v-card-text>
-                <v-form
-                    ref="form"
-                    lazy-validation
-                >
-
-                    <v-text-field
-                    v-model="login.email"
-                    label="E-mail"
-                    required
-                    ></v-text-field>
-
-                    <v-text-field
-                    v-model="login.password"
-                    label="Contraseña"
-                    type="password"
-                    required
-                    ></v-text-field>
-
-                    <!-- habilito el boton de login si los campos estan llenos -->
-                    <v-btn
-                    :disabled="!(this.login.password && this.login.email)"
-                    color="success"
-                    class="mr-4"
-                    block
-                    @click="loginUser"
+<div>
+<top-menu-1></top-menu-1>
+    <br><br><br><br>
+    <v-layout align-center justify-center>
+        <!-- <v-row> -->
+            <v-flex xs12 sm8 md6 lg5 x14>
+        
+                <v-card>
+                    <v-toolbar dark color="silver darken-3">
+                        <v-toolbar-title>
+                            Acceso al sistema
+                        </v-toolbar-title>
+                    </v-toolbar>
+                <!-- <v-card-title></v-card-title> -->
+                <v-card-text>
+                    <v-form
+                        ref="form"
+                        lazy-validation
                     >
-                    Login
-                    </v-btn>
 
-                </v-form>
+                        <v-text-field
+                        v-model="login.email"
+                        label="E-mail"
+                        required
+                        ></v-text-field>
 
-            </v-card-text>
-            <v-card-actions></v-card-actions>
-            </v-card>
-        </v-row>
+                        <v-text-field
+                        v-model="login.password"
+                        label="Contraseña"
+                        type="password"
+                        required
+                        ></v-text-field>
+
+                    </v-form>
+
+                </v-card-text>
+                <v-card-actions>
+                        <v-btn
+                        :disabled="!(this.login.password && this.login.email)"
+                        color="info"
+                        class="mr-4"
+                        block
+                        @click="loginUser"
+                        >
+                        Login
+                        </v-btn>
+                </v-card-actions>
+                </v-card>
+            </v-flex>
+        <!-- </v-row> -->
     </v-layout>
-
+</div>
 </template>
 <script>
 import swal from 'sweetalert';
 import VueJwtDecode from 'vue-jwt-decode';
 import axios from 'axios'
+import TopMenu1 from '../TopMenu1.vue';
+
 export default {
     name:'TheLogin',
+    components:{
+        TopMenu1
+
+    },
     data(){
         return{
             login: {
@@ -57,6 +72,7 @@ export default {
             }
         }
     },
+    
     // envio al usuario a /autenticado/categoria, si hay un token
     beforeCreate(){
         this.$store.dispatch('autoLogin')? this.$router.push({path: '/autenticado/categoria'}) : false;

@@ -10,14 +10,11 @@
           <v-list class="pt-6" >
             <v-list-item link>
               <v-list-item-content>
-
-                <!-- extraigo los datos del usuario y los presento-->
                 <v-list-item-title class="title">
                   {{ this.$store.state.user.nombre }}
                 </v-list-item-title>
                 <v-list-item-subtitle> {{this.$store.state.user.rol}} </v-list-item-subtitle>
                 <v-list-item-subtitle> {{this.$store.state.user.email}} </v-list-item-subtitle>
-
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -51,7 +48,6 @@
               <v-list-item-title>Articulos</v-list-item-title>
             </v-list-item>
 
-        <!-- verifico que el usuario sea Administrador para que pueda ver el campo de usuario -->
             <v-list-item link :to="{ name: 'Usuario' }" v-if="this.$store.state.user.rol === 'Administrador'">
               <v-list-item-icon>
                 <v-icon>mdi-account-multiple</v-icon>
@@ -77,7 +73,7 @@
 
         </v-navigation-drawer>
       <v-container class="pt-12">
-        <div class="background"></div>
+        <div class="hola"></div>
         <router-view />
       </v-container>
       
@@ -87,7 +83,7 @@
 
 <script>
 export default {
-  name: "AutenticadoComponent",
+  name: "SeguraComponent",
 
   components: {},
 
@@ -112,14 +108,14 @@ export default {
     position: fixed;
     z-index: 2;
   }
-  .background {
+  .hola {
     background-image: url("https://github.com/Hamilcer/nothing/blob/main/background4.png?raw=true");
     height: 100vh;
     width: 100vw;
     position: fixed;
     left: 0;
     top: 0;
-    filter: blur(.8px);
+    filter: blur(1px);
     background-size: cover;
   }
 

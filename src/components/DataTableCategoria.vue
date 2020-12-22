@@ -6,7 +6,7 @@
         :items="categorias"
         sort-by="calories"
         :loading="cargando"
-        loading-text="Cargando... Por favor espere"
+        loading-text="Loading... Please wait"
       >
         <template v-slot:top class="table">
           <v-toolbar flat>
@@ -56,23 +56,23 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="close">
-                    Cancelar
+                    Cancel
                   </v-btn>
-                  <v-btn color="blue darken-1" text @click="save"> Guardar </v-btn>
+                  <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-dialog v-model="dialogChange" max-width="500px">
+            <v-dialog v-model="dialogDelete" max-width="500px">
               <v-card>
                 <v-card-title class="headline"
                   >Seguro quieres cambiar el estado?</v-card-title
                 >
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeChange"
-                    >Cancelar</v-btn
+                  <v-btn color="blue darken-1" text @click="closeDelete"
+                    >Cancel</v-btn
                   >
-                  <v-btn color="blue darken-1" text @click="changeStateConfirm"
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm"
                     >OK</v-btn
                   >
                   <v-spacer></v-spacer>
@@ -85,7 +85,7 @@
           <v-icon small class="mr-2" @click="editItem(item)">
             mdi-pencil
           </v-icon>
-          <v-icon medium @click="changeState(item)">
+          <v-icon medium @click="deleteItem(item)">
             <template v-if="item.estado"> mdi-toggle-switch </template>
             <template v-else> mdi-toggle-switch-off-outline </template>
           </v-icon>
@@ -104,7 +104,7 @@ import axios from "axios";
 export default {
   data: () => ({
     dialog: false,
-    dialogChange: false,
+    dialogDelete: false,
     cargando: true,
     headers: [
       { text: "ID", value: "id" },
@@ -145,8 +145,8 @@ export default {
     dialog(val) {
       val || this.close();
     },
-    dialogChange(val) {
-      val || this.closeChange();
+    dialogDelete(val) {
+      val || this.closeDelete();
     },
   },
 
@@ -177,13 +177,13 @@ export default {
       this.dialog = true;
     },
 
-    changeState(item) {
+    deleteItem(item) {
       this.editedIndex = item.id;
       this.editedItem = Object.assign({}, item);
-      this.dialogChange = true;
+      this.dialogDelete = true;
     },
 
-    changeStateConfirm() {
+    deleteItemConfirm() {
       if (this.editedItem.estado === 1) {
         axios
           .put("http://localhost:3000/api/categoria/deactivate", {
@@ -215,7 +215,7 @@ export default {
             return error;
           });
       }
-      this.closeChange();
+      this.closeDelete();
     },
 
     close() {
@@ -226,8 +226,8 @@ export default {
       });
     },
 
-    closeChange() {
-      this.dialogChange = false;
+    closeDelete() {
+      this.dialogDelete = false;
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
